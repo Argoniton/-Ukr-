@@ -148,3 +148,9 @@ display first n fields
 у кожному стовпці не менше 5 записів
  нключові поля, ступені зв'язків
 
+GROUP BY об'єднує запис з однаковими записами полів
+
+Task people that have the same name:
+
+SELECT Employee.Name, Product.Name FROM Employee, Product
+ 
