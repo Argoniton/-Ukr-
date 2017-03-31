@@ -154,3 +154,11 @@ Task people that have the same name:
 
 SELECT Employee.Name, Product.Name FROM Employee, Product
  
+TOP or PERSENT - prit top 
+DISTINCT - different
+
+У мові можна змінювати назви результуючі стовпчики та об'єднувати іх в один.
+
+SELECT employee.name &'  '& product.name FROM employee INNER JOIN product ON employee.name = product.from;
+
+Lcase - make low caps 
