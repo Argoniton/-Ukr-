@@ -162,3 +162,8 @@ DISTINCT - different
 SELECT employee.name &'  '& product.name FROM employee INNER JOIN product ON employee.name = product.from;
 
 Lcase - make low caps 
+
+до складу SELECT оператора входять запити, що використовуються для визначення остаточного результату поточного запиту.
+
+Підзапити можуть входити до складу конструкції. WHERE HAVING ORDER BY GROUP BY
+
