@@ -115,7 +115,18 @@ SELECT DISTINCT table
 
 Створення баз даних та таблиці, описуючи їх структуру.
 
-Мова скюл дає можливість додавати, модифікувати та видаляти інформацію в базі даних. Атакож виконувати запити до бази даних.
+Мова SQL дає можливість додавати, модифікувати та видаляти інформацію в базі даних. Атакож виконувати запити до бази даних.
+
+There are 4 different 	uery Types INSERT, SELECT, UPDATE and DELETE
+
+Microsoft SQL Server
+	Enterprise, Developer versions, etc.
+	Express version is free of charge
+Oracle
+MySQL (Oracle, previously Sun Microsystems) MySQL can be used free of charge (open source license), Web sites that use MySQL: YouTube, Wikipedia, Facebook
+Microsoft Access
+IBM DB2
+Sybase
 
 SELECT * FROM Customers
 SELECT CustomerName, City FROM Customers;
@@ -169,32 +180,154 @@ Lcase - make low caps
 
 ALTER TABLE - використати для зміни, додати або видалити стовпчик, внести обмеження. 1 оператор для 1-го стовпчика або індекса.
 
-DROP TABLE table_name;
-SQL CREATE INDEX Statement
-CREATE UNIQUE INDEX index_name
-ON table_name ( column1, column2,...columnN);
-SQL DROP INDEX Statement
-ALTER TABLE table_name
-DROP INDEX index_name;
-SQL DESC Statement
-DESC table_name;
-SQL TRUNCATE TABLE Statement
-TRUNCATE TABLE table_name;
-SQL ALTER TABLE Statement
-ALTER TABLE table_name {ADD|DROP|MODIFY} column_name {data_ype};
-ALTER TABLE Statement (Rename)
-ALTER TABLE table_name RENAME TO new_table_name;
-SQL INSERT INTO Statement
-INSERT INTO table_name( column1, column2....columnN)
-VALUES ( value1, value2....valueN);
-SQL UPDATE Statement
-UPDATE table_name
-SET colu
-mn1 = value1, column2 = value2....columnN=valueN
-SQL DELETE Statement
-DELETE FROM table_name
-WHERE  {CONDITION};
-SQL CREATE DATABASE Statement
-CREATE DATABASE database_name;
-SQL DROP DATABASE Statement
-DROP DATABASE database_name
+UPDATE country -- UPDATE clause			|
+SET population = population + 1 -- SET clause	} Statement
+WHERE name = 'USA' -- WHERE clause		|
+
+I learn mySQL
+
+CREATE TABLE person (
+PersonId SMALLINT UNSIGNED,
+name VARCHAR(20),
+gender CHAR(1),
+state CHAR(2),
+city CHAR(14),
+CONSTRAINT PKPerson PRIMARY KEY (PersonId)
+);
+
+CREATE TABLE education (
+PersonId SMALLINT UNSIGNED,
+university VARCHAR(20),
+CONSTRAINT GraduatedUniversity PRIMARY KEY (PersonId, university),
+CONSTRAINT PersonIdFromUniversityFK FOREIGN KEY (PersonID)
+	REFERENCES person (PersonId)
+);
+
+INSERT INTO person (PersonID, name, gender) VALUES (null, 'Artemii', 'Male');
+
+SELECT PersonId, name, gender FROM person;
+
+SELECT PersonId, name, gender FROM person
+WHERE PersonId = 2;
+
+INSERT INTO education (PersonId, university) VALUES (2, 'KNU');
+
+SELECT university FROM education
+WHERE PersonId = 1
+ORDER BY university;
+
+UPDATE person
+SET state = 'VA',
+	city = 'Fairfax'
+WHERE PersonId = 2;
+
+DELETE FROM person
+WHERE PersonId = 3;
+
+DROP TABLE education;
+DROP TABLE person;
+
+
+Select-Determines which columns to include in the query’s result set
+From-Identifies the tables from which to draw data and how the tables should be joined
+Where-Filters out unwanted data
+Group by-Used to group rows together by common column values
+Having-Filters out unwanted groups
+Order by-Sorts the rows of the final result set by one or more columns
+
+SELECT *
+FROM department;
+
+Select clause * indicates all columns in the department table;
+
+SELECT s_0MeTIN1 AS something FROM table;
+
+SELECT DISTINCT university FROM education; -- a list of universities
+
+SELECT ntable.Id, ntable.Name
+FROM (SELECT Id, Name, gender FROM person) ntable;
+
+SELECT p.Name, e.university Univ
+FROM person AS p INNER JOIN education AS e
+ON p.PersonId = e.PersonId
+
+SELECT Name FROM person
+WHERE university = 'KNU' AND gender = 'M';
+
+-- additionaly I can use OR, NOT and wrap complex expressions in ().
+
+SELECT p.Name, count(e.GraduatedUniversity) NumOfUniv
+FROM person d INNER JOIN education e
+ON p.PersonId = e.PersonId
+GROUP BY p.Name
+HAVING count(e.PersonId) > 2
+
+Counts number of education for each person and returnes the names of those who have more than 2 degrees.
+
+...
+ORDER BY name;
+...
+ORDER BY price DESC; -- for rich
+...
+WHERE date IS NULL AND title != 'Teller' AND start >= '2017-01-01';
+
+ON & WHERE:
+
+SELECT p.Name Name, e.university
+FROM person p INNER JOIN education e
+	ON p.PersonId = e.PersonId
+WHERE p.sex = 'F';
+
+Display all pairs of a girl and university she graduated.
+
+DELETE FROM employee
+WHERE status = 'fired' AND YEAR(endDate)<=2015;
+
+SELECT Name, Responsibility FROM employee
+WHERE Id IN (SELECT EmployeeId FROM product
+	WHERE Category = 'Article');
+
+Selects all employees who write articles
+
+...
+WHERE state NOT IN ('VA','IL','LA');
+...
+WHERE lname LIKE 'F%' OR lname LIKE 'G%';
+...
+WHERE lname REGEXP '^[FG]';
+
+_ Exactly one character
+% Any number of characters (including 0
+F% Strings beginning with F
+%tStrings ending with t
+%bas% Strings containing the substring 'bas'
+_ _t_ Four-character strings with a t in the third position
+_ _ _-_ _-_ _ _ _ 11-character strings with dashes in the fourth and seventh positions
+
+UNION ALL -- unites two tables
+UNION -- unites two tables while excluing duplicate rows
+INTERSECT -- displays rows that are shared by two tables
+EXCEPT --
+
+SELECT ...
+INTERSECT
+SELECT ...
+
+FUNCTIONS: 
+MOD(vl)
+POW(vl)
+MAX(..)/MIN(..)
+SELECT POW(2,10) kilobyte, POW(2,20) megabyte,POW(2,30) gigabyte, POW(2,40) terabyte;
+TRUNCATE(NUM, ROUNDINGNUM)
+ 
+SELECT account_id, SIGN(avail_balance), ABS(avail_balance)
+
+
+
+
+
+
+
+
+
+Bibliography : Alan Beaulieu Learning SQL
